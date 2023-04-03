@@ -1,6 +1,10 @@
 # mimotion
-小米运动刷步数 原github Squaregentleman被封 为了不耽误你们正常fork 我开了新号
-# 小米运动自动刷步数
+![ 刷步数](https://github.com/huangshihai/mimotion/actions/workflows/run.yml/badge.svg)
+[![GitHub forks](https://img.shields.io/github/forks/huangshihai/mimotion?style=flat-square)](https://github.com/huangsh/mimotion/network)
+[![GitHub stars](https://img.shields.io/github/stars/huangshihai/mimotion?style=flat-square)](https://github.com/huangshihai/mimotion/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/huangshihai/mimotion?style=flat-square)](https://github.com/huangshihai/mimotion/issues)
+
+# 小米运动自动刷步数（支持邮箱登录）
 
 > 小米运动自动刷步数
 
@@ -9,25 +13,17 @@
 ### 一、Fork 此仓库
 
 ### 二、设置账号密码
-> 添加名为  **PMODE**、**PKEY**、**USER**、**PWD**、**STEP** 的变量: Settings-->Secrets-->New secret  
+> 添加名为  **USER**、**PWD**、**OPEN_GET_WEATHER**、**AREA**的变量: Settings-->Secrets-->New secret  
 
-| Secrets |  格式  |
-| -------- | ----- |
-| PMODE |   推送模式,server酱推送:`wx` 新server酱推送:`nwx` tg推送:`tg` 企业微信推送:`qwx` PushPlus推送:`pp` 关闭推送:`off`|
-| PKEY |   推送key,详见PKEY参数解释|
-| USER |   账号,仅支持手机号|
-| PWD |   密码|
-| STEP |   步数:0则为1w-2w之间随机,自定义随机范围: `18000-25000`|
+| Secrets | 格式                                                                                                                |
+| -------- |-------------------------------------------------------------------------------------------------------------------|
+| USER | 小米运动登录账号,仅支持小米运动账号对应的手机号或邮箱,不支持小米账号                                                                               |
+| PWD | 小米运动登录密码,仅支持小米运动账号对应的密码                                                                                           |
+| OPEN_GET_WEATHER | 开启根据地区天气情况降低步数**False**关闭,**True**开启                                                                              |
+| AREA | 设置获取天气的地区（上面开启后必填）如：**北京**，当**OPEN_GET_WEATHER**为**False**时填写**NO**                                               |
+| PAT | 此处**PAT**需要申请，值为github token，教程详见：https://www.jianshu.com/p/bb82b3ad1d11 ,需要repo和workflow权限,此项必填，避免git push的权限错误。 |
 
-| PKEY参数解释 |  格式  |
-| -------- | ----- |
-| TG推送 |   `token@userid`|
-| Server酱推送 |   `填写server酱的推送key`|
-| 企业微信推送 |   `推送用户（可@all）-corpid-corpsecret-(agentid 空则为默认1000002)`|
-| PushPlus推送 |   `token`|
-| 关闭推送 |   `留空即可`|
-
-### 三、多账户(用不上请忽略)
+### 三、自定义启动时间多账户(用不上请忽略)
 
 多账户请用 **#** 分割 然后保存到变量 **USER** 和 **PWD**
 
@@ -40,37 +36,23 @@
 ### 四、自定义启动时间
 
 编辑 **.github/workflows/run.yml**
+修改其中**cron**语句的判断时间为UTC时间，即**北京时间-8**，如北京时间8点为UTC时间0点，需要运行的时间-8就是UTC时间
 
-找到 cron: 0 10 * * *
-
-修改其中的10为你要的时间
-
-需要运行的时间-8就是UTC时间
+### 五、感谢列表
+本项目基于https://github.com/xunichanghuan/mimotion 项目修改，特此感谢
 
 ## 注意事项
 
-1. 每天运行一次，在下午 6 点
+1. 每天运行六次，整由run.yml中的cron控制，分钟为随机值
 
 2. 多账户的数量和密码请一定要对上 不然无法使用!!!
 
 3. 启动时间得是UTC时间!
 
-4. server酱注册地址 [点我](https://sct.ftqq.com/)
+4. 如果支付宝没有更新步数,到小米运动->设置->账号->注销账号->清空数据,然后重新登录,重新绑定第三方
 
-5. 如果支付宝没有更新步数,到小米运动->设置->账号->注销账号->清空数据,然后重新登录,重新绑定第三方
+5. 小米运动不会更新步数，只有关联的会同步！！！！！
 
-6. 小米运动不会更新步数，只有关联的会同步！！！！！
+6. 请各位在使用时Fork[主分支](https://github.com/huangshihai/mimotion/)，防止出现不必要的bug.
 
-7. 请各位在使用时Fork[主分支](https://github.com/577fkj/mimotion/)，防止出现不必要的bug.
-
-8. TG推送教程 [点我](./TG_PUSH.md)
-
-9. 请注意，账号不是 [小米账号]，而是 [小米运动] 的账号。
-
-## 纪念一下往日的辉煌
-
-[![](https://i.loli.net/2021/11/19/BLi5cpjPSxh7Am2.png)](https://i.loli.net/2021/11/19/BLi5cpjPSxh7Am2.png)
-
-## 历史Star数
-
-[![Stargazers over time](https://starchart.cc/577fkj/mimotion.svg)](https://starchart.cc/577fkj/mimotion)
+7. 请注意，账号不是 [小米账号]，而是 [小米运动] 的账号。
